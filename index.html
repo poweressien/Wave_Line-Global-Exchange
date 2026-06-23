@@ -344,13 +344,90 @@
             color: var(--gold);
         }
 
-        /* ===== TESTIMONIAL CARDS ===== */
-        .testimonial-card {
-            transition: all 0.4s ease;
+        /* ===== GALLERY / TRANSACTION CARDS ===== */
+        .gallery-card {
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
+            overflow: hidden;
         }
-        .testimonial-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(212, 175, 55, 0.2);
+        .gallery-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold);
+            box-shadow: 0 12px 48px rgba(212, 175, 55, 0.15);
+        }
+        .gallery-card img {
+            transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        .gallery-card:hover img {
+            transform: scale(1.05);
+        }
+        .gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(11, 14, 26, 0.5);
+            backdrop-filter: blur(2px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            border-radius: 12px;
+        }
+        .gallery-card:hover .gallery-overlay {
+            opacity: 1;
+        }
+        .gallery-overlay span {
+            background: var(--gold);
+            color: #0b0e1a;
+            padding: 8px 20px;
+            border-radius: 40px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        /* Modal */
+        #imageModal {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(12px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        #imageModal.active {
+            display: flex;
+        }
+        #imageModal img {
+            max-height: 90vh;
+            max-width: 90vw;
+            object-fit: contain;
+            border-radius: 12px;
+            border: 2px solid rgba(212, 175, 55, 0.2);
+            box-shadow: 0 0 60px rgba(212, 175, 55, 0.1);
+        }
+        .modal-close {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 2.5rem;
+            color: #fff;
+            cursor: pointer;
+            transition: transform 0.3s ease, color 0.3s ease;
+            background: none;
+            border: none;
+            opacity: 0.7;
+        }
+        .modal-close:hover {
+            transform: rotate(90deg);
+            color: var(--gold);
+            opacity: 1;
         }
 
         /* ===== CTA BUTTONS ===== */
@@ -510,6 +587,9 @@
                 padding: 12px 28px;
                 font-size: 0.95rem;
             }
+            .gallery-card img {
+                height: 180px;
+            }
         }
         @media (max-width: 480px) {
             .hero-title {
@@ -520,6 +600,11 @@
             }
             .country-flag {
                 font-size: 2.2rem;
+            }
+            .modal-close {
+                top: 20px;
+                right: 20px;
+                font-size: 2rem;
             }
         }
 
@@ -600,7 +685,7 @@
     <header class="fixed top-0 left-0 w-full z-50 nav-blur" role="banner">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex items-center justify-between h-16 md:h-20">
-                <!-- HEADER LOGO - UPDATED WITH YOUR IMAGE -->
+                <!-- HEADER LOGO -->
                 <a href="#" class="flex items-center">
                     <img src="5895461536187223359_121.jpg" alt="Wave Line Global Exchange Logo" class="h-10 w-auto">
                 </a>
@@ -608,6 +693,7 @@
                     <a href="#about" class="text-white/70 hover:text-gold transition-colors">About</a>
                     <a href="#business" class="text-white/70 hover:text-gold transition-colors">Business</a>
                     <a href="#countries" class="text-white/70 hover:text-gold transition-colors">Countries</a>
+                    <a href="#gallery" class="text-white/70 hover:text-gold transition-colors">Transactions</a>
                     <a href="#services" class="text-white/70 hover:text-gold transition-colors">Services</a>
                     <a href="#contact" class="text-white/70 hover:text-gold transition-colors">Contact</a>
                 </nav>
@@ -624,6 +710,7 @@
                 <a href="#about" class="block py-2 text-white/70 hover:text-gold transition-colors">About</a>
                 <a href="#business" class="block py-2 text-white/70 hover:text-gold transition-colors">Business</a>
                 <a href="#countries" class="block py-2 text-white/70 hover:text-gold transition-colors">Countries</a>
+                <a href="#gallery" class="block py-2 text-white/70 hover:text-gold transition-colors">Transactions</a>
                 <a href="#services" class="block py-2 text-white/70 hover:text-gold transition-colors">Services</a>
                 <a href="#contact" class="block py-2 text-white/70 hover:text-gold transition-colors">Contact</a>
                 <a href="#contact" class="mt-3 inline-block btn-gold text-sm py-2 px-6 w-full text-center">
@@ -648,7 +735,6 @@
                 <circle cx="620" cy="210" r="7" fill="rgba(212,175,55,0.10)" />
                 <path d="M200 160 Q300 120 400 150 T600 170" stroke="rgba(212,175,55,0.06)" stroke-width="1" fill="none" />
                 <path d="M180 240 Q300 280 420 250 T620 230" stroke="rgba(37,99,235,0.06)" stroke-width="1" fill="none" />
-                <!-- Simplified continent shapes -->
                 <path d="M240 140 Q260 120 300 130 Q340 140 320 170 Q300 190 270 180 Q240 170 240 140Z" fill="rgba(212,175,55,0.03)" stroke="rgba(212,175,55,0.06)" stroke-width="0.5" />
                 <path d="M460 150 Q500 130 540 150 Q560 170 530 190 Q500 200 470 180 Q450 170 460 150Z" fill="rgba(37,99,235,0.03)" stroke="rgba(37,99,235,0.06)" stroke-width="0.5" />
                 <path d="M340 210 Q380 190 420 210 Q440 230 410 260 Q370 270 340 250 Q320 230 340 210Z" fill="rgba(212,175,55,0.02)" stroke="rgba(212,175,55,0.05)" stroke-width="0.5" />
@@ -707,7 +793,6 @@
                 </div>
             </div>
         </div>
-        <!-- Gold glow accent -->
         <div class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-gold/5 to-transparent pointer-events-none" aria-hidden="true"></div>
     </section>
 
@@ -775,7 +860,6 @@
                 </div>
             </div>
 
-            <!-- Timeline style -->
             <div class="mt-16 grid sm:grid-cols-3 gap-6 reveal">
                 <div class="glass p-6 rounded-xl border-l-4 border-gold">
                     <div class="text-gold text-sm font-semibold uppercase tracking-wider">Step 01</div>
@@ -823,7 +907,7 @@
         </div>
     </section>
 
-        <!-- ===== COUNTRIES SECTION ===== -->
+    <!-- ===== COUNTRIES SECTION ===== -->
     <section id="countries" class="py-20 md:py-28 relative overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.03)_0%,_transparent_70%)]" aria-hidden="true"></div>
 
@@ -837,7 +921,6 @@
                 <div class="section-divider mx-auto"></div>
             </div>
 
-            <!-- Animated globe visualization -->
             <div class="flex justify-center mb-12 reveal">
                 <div class="relative w-24 h-24 md:w-32 md:h-32 globe-pulse">
                     <div class="absolute inset-0 rounded-full bg-gold/10 blur-2xl"></div>
@@ -850,49 +933,41 @@
             </div>
 
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 reveal">
-                <!-- Nigeria -->
                 <a href="https://wa.me/2347051980716?text=I%20want%20to%20send%20money%20to%20Nigeria" target="_blank" rel="noopener" class="glass p-4 rounded-xl text-center country-card border border-white/5 hover:border-gold/40 transition-all duration-300">
                     <div class="country-flag">🇳🇬</div>
                     <div class="font-semibold text-white mt-1">Nigeria</div>
                     <div class="text-xs text-white/40">Send &amp; Receive</div>
                 </a>
-                <!-- Cameroon -->
                 <a href="https://wa.me/2347051980716?text=I%20want%20to%20send%20money%20to%20Cameroon" target="_blank" rel="noopener" class="glass p-4 rounded-xl text-center country-card border border-white/5 hover:border-gold/40 transition-all duration-300">
                     <div class="country-flag">🇨🇲</div>
                     <div class="font-semibold text-white mt-1">Cameroon</div>
                     <div class="text-xs text-white/40">Send &amp; Receive</div>
                 </a>
-                <!-- Zambia -->
                 <a href="https://wa.me/2347051980716?text=I%20want%20to%20send%20money%20to%20Zambia" target="_blank" rel="noopener" class="glass p-4 rounded-xl text-center country-card border border-white/5 hover:border-gold/40 transition-all duration-300">
                     <div class="country-flag">🇿🇲</div>
                     <div class="font-semibold text-white mt-1">Zambia</div>
                     <div class="text-xs text-white/40">Send &amp; Receive</div>
                 </a>
-                <!-- South Africa -->
                 <a href="https://wa.me/2347051980716?text=I%20want%20to%20send%20money%20to%20South%20Africa" target="_blank" rel="noopener" class="glass p-4 rounded-xl text-center country-card border border-white/5 hover:border-gold/40 transition-all duration-300">
                     <div class="country-flag">🇿🇦</div>
                     <div class="font-semibold text-white mt-1">South Africa</div>
                     <div class="text-xs text-white/40">Send &amp; Receive</div>
                 </a>
-                <!-- Kenya -->
                 <a href="https://wa.me/2347051980716?text=I%20want%20to%20send%20money%20to%20Kenya" target="_blank" rel="noopener" class="glass p-4 rounded-xl text-center country-card border border-white/5 hover:border-gold/40 transition-all duration-300">
                     <div class="country-flag">🇰🇪</div>
                     <div class="font-semibold text-white mt-1">Kenya</div>
                     <div class="text-xs text-white/40">Send &amp; Receive</div>
                 </a>
-                <!-- Benin Republic -->
                 <a href="https://wa.me/2347051980716?text=I%20want%20to%20send%20money%20to%20Benin%20Republic" target="_blank" rel="noopener" class="glass p-4 rounded-xl text-center country-card border border-white/5 hover:border-gold/40 transition-all duration-300">
                     <div class="country-flag">🇧🇯</div>
                     <div class="font-semibold text-white mt-1">Benin Republic</div>
                     <div class="text-xs text-white/40">Send &amp; Receive</div>
                 </a>
-                <!-- Ghana -->
                 <a href="https://wa.me/2347051980716?text=I%20want%20to%20send%20money%20to%20Ghana" target="_blank" rel="noopener" class="glass p-4 rounded-xl text-center country-card border border-white/5 hover:border-gold/40 transition-all duration-300">
                     <div class="country-flag">🇬🇭</div>
                     <div class="font-semibold text-white mt-1">Ghana</div>
                     <div class="text-xs text-white/40">Send &amp; Receive</div>
                 </a>
-                <!-- + More (coming soon) – not clickable -->
                 <div class="glass p-4 rounded-xl text-center country-card border border-white/5 opacity-50 cursor-not-allowed">
                     <div class="country-flag">🌍</div>
                     <div class="font-semibold text-white mt-1">+ More</div>
@@ -900,79 +975,6 @@
                 </div>
             </div>
 
-            <!-- Receive from -->
-            <div class="mt-12 reveal">
-                <p class="text-center text-sm font-medium uppercase tracking-wider text-white/40 mb-6">
-                    <i class="fas fa-arrow-down mr-2"></i> We Also Receive Payments From
-                </p>
-                <div class="flex flex-wrap justify-center gap-3">
-                    <span class="glass px-4 py-2 rounded-full text-sm border border-white/5">🇺🇸 USA</span>
-                    <span class="glass px-4 py-2 rounded-full text-sm border border-white/5">🇬🇧 United Kingdom</span>
-                    <span class="glass px-4 py-2 rounded-full text-sm border border-white/5">🇨🇳 China</span>
-                    <span class="glass px-4 py-2 rounded-full text-sm border border-white/5">🇨🇦 Canada</span>
-                    <span class="glass px-4 py-2 rounded-full text-sm border border-white/5">🇩🇿 Algeria</span>
-                    <span class="glass px-4 py-2 rounded-full text-sm border border-white/5">🇦🇺 Australia</span>
-                    <span class="glass px-4 py-2 rounded-full text-sm border border-white/5">🇩🇪 Germany</span>
-                </div>
-            </div>
-        </div>
-    </section>
-            <!-- Animated globe visualization -->
-            <div class="flex justify-center mb-12 reveal">
-                <div class="relative w-24 h-24 md:w-32 md:h-32 globe-pulse">
-                    <div class="absolute inset-0 rounded-full bg-gold/10 blur-2xl"></div>
-                    <div class="absolute inset-0 rounded-full border-2 border-gold/20 flex items-center justify-center text-5xl md:text-6xl">
-                        🌍
-                    </div>
-                    <div class="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-gold animate-ping"></div>
-                    <div class="absolute -bottom-2 -left-2 w-3 h-3 rounded-full bg-royal-blue animate-ping" style="animation-delay:0.6s;"></div>
-                </div>
-            </div>
-
-            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 reveal">
-                <div class="glass p-4 rounded-xl text-center country-card border border-white/5">
-                    <div class="country-flag">🇳🇬</div>
-                    <div class="font-semibold text-white mt-1">Nigeria</div>
-                    <div class="text-xs text-white/40">Send &amp; Receive</div>
-                </div>
-                <div class="glass p-4 rounded-xl text-center country-card border border-white/5">
-                    <div class="country-flag">🇨🇲</div>
-                    <div class="font-semibold text-white mt-1">Cameroon</div>
-                    <div class="text-xs text-white/40">Send &amp; Receive</div>
-                </div>
-                <div class="glass p-4 rounded-xl text-center country-card border border-white/5">
-                    <div class="country-flag">🇿🇲</div>
-                    <div class="font-semibold text-white mt-1">Zambia</div>
-                    <div class="text-xs text-white/40">Send &amp; Receive</div>
-                </div>
-                <div class="glass p-4 rounded-xl text-center country-card border border-white/5">
-                    <div class="country-flag">🇿🇦</div>
-                    <div class="font-semibold text-white mt-1">South Africa</div>
-                    <div class="text-xs text-white/40">Send &amp; Receive</div>
-                </div>
-                <div class="glass p-4 rounded-xl text-center country-card border border-white/5">
-                    <div class="country-flag">🇰🇪</div>
-                    <div class="font-semibold text-white mt-1">Kenya</div>
-                    <div class="text-xs text-white/40">Send &amp; Receive</div>
-                </div>
-                <div class="glass p-4 rounded-xl text-center country-card border border-white/5">
-                    <div class="country-flag">🇧🇯</div>
-                    <div class="font-semibold text-white mt-1">Benin Republic</div>
-                    <div class="text-xs text-white/40">Send &amp; Receive</div>
-                </div>
-                <div class="glass p-4 rounded-xl text-center country-card border border-white/5">
-                    <div class="country-flag">🇬🇭</div>
-                    <div class="font-semibold text-white mt-1">Ghana</div>
-                    <div class="text-xs text-white/40">Send &amp; Receive</div>
-                </div>
-                <div class="glass p-4 rounded-xl text-center country-card border border-white/5 opacity-50">
-                    <div class="country-flag">🌍</div>
-                    <div class="font-semibold text-white mt-1">+ More</div>
-                    <div class="text-xs text-white/40">Coming Soon</div>
-                </div>
-            </div>
-
-            <!-- Receive from -->
             <div class="mt-12 reveal">
                 <p class="text-center text-sm font-medium uppercase tracking-wider text-white/40 mb-6">
                     <i class="fas fa-arrow-down mr-2"></i> We Also Receive Payments From
@@ -1112,69 +1114,116 @@
         </div>
     </section>
 
-    <!-- ===== TESTIMONIAL SECTION ===== -->
-    <section id="testimonials" class="py-20 md:py-28 relative overflow-hidden">
-        <div class="absolute top-0 left-0 w-1/2 h-1/2 bg-royal-blue/3 blur-3xl rounded-full" aria-hidden="true"></div>
+    <!-- ===== TRANSACTION GALLERY (NEW - Replaces Testimonials) ===== -->
+    <section id="gallery" class="py-20 md:py-28 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-1/2 h-1/2 bg-gold/5 blur-3xl rounded-full" aria-hidden="true"></div>
+        <div class="absolute bottom-0 right-0 w-1/2 h-1/2 bg-royal-blue/5 blur-3xl rounded-full" aria-hidden="true"></div>
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div class="text-center mb-16 reveal">
-                <span class="text-sm font-semibold uppercase tracking-widest text-gold">Testimonials</span>
+                <span class="text-sm font-semibold uppercase tracking-widest text-gold">Proof of Trust</span>
                 <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mt-2">
-                    <span class="text-white">What Our</span>
-                    <span class="text-gold-gradient">Clients Say</span>
+                    <span class="text-white">Recent</span>
+                    <span class="text-gold-gradient">Transactions</span>
                 </h2>
                 <div class="section-divider mx-auto"></div>
+                <p class="text-white/50 mt-4 text-sm md:text-base">Click on any transaction image to view it in full detail.</p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-6">
-                <div class="glass p-8 rounded-2xl testimonial-card border border-white/5 reveal" style="transition-delay:0s;">
-                    <div class="flex items-center gap-1 text-gold text-sm mb-3">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p class="text-white/70 text-sm leading-relaxed italic">
-                        "Wave_Line Global Exchange made my international transfer so smooth and fast. Highly recommended!"
-                    </p>
-                    <div class="mt-4 flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-lg">👤</div>
-                        <div>
-                            <div class="font-semibold text-sm text-white">Chidi O.</div>
-                            <div class="text-xs text-white/40">Lagos, Nigeria</div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Card 1 -->
+                <div class="glass-gold p-4 rounded-2xl border border-white/5 gallery-card relative" onclick="openModal('5897713336000908857_121.jpg')">
+                    <div class="relative">
+                        <img src="5897713336000908857_121.jpg" alt="Transaction to Nigeria" loading="lazy" />
+                        <div class="gallery-overlay">
+                            <span><i class="fas fa-search-plus mr-2"></i> View</span>
                         </div>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-white/40">Transaction</p>
+                            <p class="text-sm font-semibold text-gold">Transfer to Nigeria</p>
+                        </div>
+                        <span class="text-xs bg-gold/10 text-gold px-3 py-1 rounded-full">✅ Completed</span>
                     </div>
                 </div>
-                <div class="glass p-8 rounded-2xl testimonial-card border border-white/5 reveal" style="transition-delay:0.1s;">
-                    <div class="flex items-center gap-1 text-gold text-sm mb-3">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p class="text-white/70 text-sm leading-relaxed italic">
-                        "The exchange rates are competitive and the service is reliable. I trust them with all my business payments."
-                    </p>
-                    <div class="mt-4 flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-lg">👤</div>
-                        <div>
-                            <div class="font-semibold text-sm text-white">Sarah M.</div>
-                            <div class="text-xs text-white/40">Nairobi, Kenya</div>
+
+                <!-- Card 2 -->
+                <div class="glass-gold p-4 rounded-2xl border border-white/5 gallery-card relative" onclick="openModal('5897713336000908860_120.jpg')">
+                    <div class="relative">
+                        <img src="5897713336000908860_120.jpg" alt="Payment to Cameroon" loading="lazy" />
+                        <div class="gallery-overlay">
+                            <span><i class="fas fa-search-plus mr-2"></i> View</span>
                         </div>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-white/40">Transaction</p>
+                            <p class="text-sm font-semibold text-gold">Payment to Cameroon</p>
+                        </div>
+                        <span class="text-xs bg-gold/10 text-gold px-3 py-1 rounded-full">✅ Completed</span>
                     </div>
                 </div>
-                <div class="glass p-8 rounded-2xl testimonial-card border border-white/5 reveal" style="transition-delay:0.2s;">
-                    <div class="flex items-center gap-1 text-gold text-sm mb-3">
-                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-                    </div>
-                    <p class="text-white/70 text-sm leading-relaxed italic">
-                        "Fast, secure, and professional. Wave_Line Global Exchange is my go-to for cross-border transactions."
-                    </p>
-                    <div class="mt-4 flex items-center gap-3">
-                        <div class="w-10 h-10 rounded-full bg-gold/20 flex items-center justify-center text-lg">👤</div>
-                        <div>
-                            <div class="font-semibold text-sm text-white">James K.</div>
-                            <div class="text-xs text-white/40">Accra, Ghana</div>
+
+                <!-- Card 3 -->
+                <div class="glass-gold p-4 rounded-2xl border border-white/5 gallery-card relative" onclick="openModal('5897713336000908861_121.jpg')">
+                    <div class="relative">
+                        <img src="5897713336000908861_121.jpg" alt="Collection from USA" loading="lazy" />
+                        <div class="gallery-overlay">
+                            <span><i class="fas fa-search-plus mr-2"></i> View</span>
                         </div>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-white/40">Transaction</p>
+                            <p class="text-sm font-semibold text-gold">Collection from USA</p>
+                        </div>
+                        <span class="text-xs bg-gold/10 text-gold px-3 py-1 rounded-full">✅ Completed</span>
+                    </div>
+                </div>
+
+                <!-- Card 4 -->
+                <div class="glass-gold p-4 rounded-2xl border border-white/5 gallery-card relative" onclick="openModal('5897713336000908858_121.jpg')">
+                    <div class="relative">
+                        <img src="5897713336000908858_121.jpg" alt="Transfer to Ghana" loading="lazy" />
+                        <div class="gallery-overlay">
+                            <span><i class="fas fa-search-plus mr-2"></i> View</span>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-white/40">Transaction</p>
+                            <p class="text-sm font-semibold text-gold">Transfer to Ghana</p>
+                        </div>
+                        <span class="text-xs bg-gold/10 text-gold px-3 py-1 rounded-full">✅ Completed</span>
+                    </div>
+                </div>
+
+                <!-- Card 5 -->
+                <div class="glass-gold p-4 rounded-2xl border border-white/5 gallery-card relative" onclick="openModal('5897713336000908859_121.jpg')">
+                    <div class="relative">
+                        <img src="5897713336000908859_121.jpg" alt="Payment to Kenya" loading="lazy" />
+                        <div class="gallery-overlay">
+                            <span><i class="fas fa-search-plus mr-2"></i> View</span>
+                        </div>
+                    </div>
+                    <div class="mt-3 flex items-center justify-between">
+                        <div>
+                            <p class="text-xs text-white/40">Transaction</p>
+                            <p class="text-sm font-semibold text-gold">Payment to Kenya</p>
+                        </div>
+                        <span class="text-xs bg-gold/10 text-gold px-3 py-1 rounded-full">✅ Completed</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <!-- ===== IMAGE MODAL (Lightbox) ===== -->
+    <div id="imageModal" onclick="closeModal()">
+        <button class="modal-close" onclick="event.stopPropagation(); closeModal();" aria-label="Close modal">&times;</button>
+        <img id="modalImage" src="" alt="Transaction Screenshot" onclick="event.stopPropagation();" />
+    </div>
 
     <!-- ===== CONTACT SECTION ===== -->
     <section id="contact" class="py-20 md:py-28 relative overflow-hidden">
@@ -1210,6 +1259,15 @@
                                 <div>
                                     <div class="text-sm text-white/50">Phone (Cameroon)</div>
                                     <div class="font-medium text-white">+237 677 794 891</div>
+                                </div>
+                                <span class="ml-auto text-xs text-gold"><i class="fas fa-arrow-right"></i></span>
+                            </a>
+                            <!-- NEW EMAIL ADDRESS ADDED HERE -->
+                            <a href="mailto:mhiztaoceon164@gmail.com" class="contact-item flex items-center gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:border-gold/20 transition-all">
+                                <span class="text-gold text-xl w-10 text-center"><i class="fas fa-envelope"></i></span>
+                                <div>
+                                    <div class="text-sm text-white/50">Email</div>
+                                    <div class="font-medium text-white">mhiztaoceon164@gmail.com</div>
                                 </div>
                                 <span class="ml-auto text-xs text-gold"><i class="fas fa-arrow-right"></i></span>
                             </a>
@@ -1279,7 +1337,6 @@
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
                 <div class="col-span-2 lg:col-span-1">
-                    <!-- FOOTER LOGO - UPDATED WITH YOUR IMAGE -->
                     <a href="#" class="flex items-center">
                         <img src="5895461536187223359_121.jpg" alt="Wave Line Global Exchange Logo" class="h-12 w-auto">
                     </a>
@@ -1299,7 +1356,7 @@
                         <li><a href="#about" class="footer-link">About</a></li>
                         <li><a href="#business" class="footer-link">Business</a></li>
                         <li><a href="#services" class="footer-link">Services</a></li>
-                        <li><a href="#countries" class="footer-link">Countries</a></li>
+                        <li><a href="#gallery" class="footer-link">Transactions</a></li>
                         <li><a href="#contact" class="footer-link">Contact</a></li>
                     </ul>
                 </div>
@@ -1309,6 +1366,8 @@
                     <ul class="mt-4 space-y-2 text-sm text-white/40">
                         <li><a href="tel:+2347051980716" class="hover:text-gold transition-colors">+234 705 198 0716</a></li>
                         <li><a href="tel:+237677794891" class="hover:text-gold transition-colors">+237 677 794 891</a></li>
+                        <!-- NEW EMAIL IN FOOTER -->
+                        <li><a href="mailto:mhiztaoceon164@gmail.com" class="hover:text-gold transition-colors">mhiztaoceon164@gmail.com</a></li>
                         <li><a href="https://www.facebook.com/dlenz.emmah" target="_blank" class="hover:text-gold transition-colors">Facebook</a></li>
                     </ul>
                 </div>
@@ -1341,7 +1400,6 @@
                     loader.classList.add('hidden');
                 }, 800);
             });
-            // Fallback: hide after 3s even if load event is slow
             setTimeout(function() {
                 if (!loader.classList.contains('hidden')) {
                     loader.classList.add('hidden');
@@ -1358,8 +1416,6 @@
                 this.querySelector('i').classList.toggle('fa-bars');
                 this.querySelector('i').classList.toggle('fa-times');
             });
-
-            // Close mobile menu on link click
             mobileMenu.querySelectorAll('a').forEach(function(link) {
                 link.addEventListener('click', function() {
                     mobileMenu.classList.add('hidden');
@@ -1369,9 +1425,8 @@
                 });
             });
 
-            // ===== SCROLL REVEAL (Intersection Observer) =====
+            // ===== SCROLL REVEAL =====
             const revealElements = document.querySelectorAll('.reveal, .reveal-left, .reveal-right, .reveal-scale');
-
             const revealObserver = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
@@ -1382,14 +1437,12 @@
                 threshold: 0.12,
                 rootMargin: '0px 0px -20px 0px'
             });
-
             revealElements.forEach(function(el) {
                 revealObserver.observe(el);
             });
 
             // ===== ANIMATED COUNTERS =====
             const counters = document.querySelectorAll('.counter-value');
-
             const counterObserver = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
@@ -1397,12 +1450,8 @@
                         const target = parseInt(el.getAttribute('data-target'), 10);
                         let current = 0;
                         const increment = Math.ceil(target / 60);
-                        const duration = 1800; // ms
-                        const stepTime = Math.floor(duration / 60);
-
-                        // Check if it's the 100% counter
+                        const stepTime = Math.floor(1800 / 60);
                         const isPercent = el.innerHTML.includes('%');
-
                         const timer = setInterval(function() {
                             current += increment;
                             if (current >= target) {
@@ -1415,15 +1464,12 @@
                                 el.textContent = current + (current >= target ? '' : '+');
                             }
                         }, stepTime);
-
-                        // Unobserve after starting
                         counterObserver.unobserve(el);
                     }
                 });
             }, {
                 threshold: 0.3
             });
-
             counters.forEach(function(counter) {
                 counterObserver.observe(counter);
             });
@@ -1431,34 +1477,26 @@
             // ===== CONTACT FORM =====
             const contactForm = document.getElementById('contactForm');
             const formStatus = document.getElementById('formStatus');
-
             contactForm.addEventListener('submit', function(e) {
                 e.preventDefault();
-
                 const name = document.getElementById('name').value.trim();
                 const email = document.getElementById('email').value.trim();
                 const message = document.getElementById('message').value.trim();
-
                 if (!name || !email || !message) {
                     formStatus.className = 'mt-4 text-sm text-center text-red-400';
                     formStatus.textContent = 'Please fill in all required fields.';
                     formStatus.classList.remove('hidden');
                     return;
                 }
-
-                // Simple email validation
                 if (!email.includes('@') || !email.includes('.')) {
                     formStatus.className = 'mt-4 text-sm text-center text-red-400';
                     formStatus.textContent = 'Please enter a valid email address.';
                     formStatus.classList.remove('hidden');
                     return;
                 }
-
-                // Simulate sending
                 formStatus.className = 'mt-4 text-sm text-center text-gold';
                 formStatus.textContent = 'Sending message...';
                 formStatus.classList.remove('hidden');
-
                 setTimeout(function() {
                     formStatus.className = 'mt-4 text-sm text-center text-green-400';
                     formStatus.textContent = '✅ Message sent! We\'ll get back to you shortly.';
@@ -1466,7 +1504,7 @@
                 }, 1500);
             });
 
-            // ===== SMOOTH SCROLL FOR NAV LINKS =====
+            // ===== SMOOTH SCROLL =====
             document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
                 anchor.addEventListener('click', function(e) {
                     const targetId = this.getAttribute('href');
@@ -1485,7 +1523,7 @@
                 });
             });
 
-            // ===== PARALLAX FLOATING PARTICLES (subtle mouse movement) =====
+            // ===== PARALLAX PARTICLES =====
             const particles = document.querySelectorAll('.particle');
             document.addEventListener('mousemove', function(e) {
                 const x = (e.clientX / window.innerWidth - 0.5) * 8;
@@ -1496,9 +1534,11 @@
                 });
             });
 
-            // ===== KEYBOARD ACCESSIBILITY: trap focus in mobile menu =====
-            // (Simple: close menu on Escape key)
+            // ===== ESC KEY CLOSE MODAL =====
             document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                }
                 if (e.key === 'Escape') {
                     if (!mobileMenu.classList.contains('hidden')) {
                         mobileMenu.classList.add('hidden');
@@ -1509,6 +1549,21 @@
                     }
                 }
             });
+
+            // ===== GALLERY MODAL FUNCTIONS (Global) =====
+            window.openModal = function(src) {
+                const modal = document.getElementById('imageModal');
+                const img = document.getElementById('modalImage');
+                img.src = src;
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            };
+
+            window.closeModal = function() {
+                const modal = document.getElementById('imageModal');
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            };
 
         });
     </script>
