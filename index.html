@@ -823,7 +823,7 @@
         </div>
     </section>
 
-    <!-- ===== COUNTRIES SECTION ===== -->
+        <!-- ===== COUNTRIES SECTION ===== -->
     <section id="countries" class="py-20 md:py-28 relative overflow-hidden">
         <div class="absolute top-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_center,_rgba(212,175,55,0.03)_0%,_transparent_70%)]" aria-hidden="true"></div>
 
@@ -837,6 +837,86 @@
                 <div class="section-divider mx-auto"></div>
             </div>
 
+            <!-- Animated globe visualization -->
+            <div class="flex justify-center mb-12 reveal">
+                <div class="relative w-24 h-24 md:w-32 md:h-32 globe-pulse">
+                    <div class="absolute inset-0 rounded-full bg-gold/10 blur-2xl"></div>
+                    <div class="absolute inset-0 rounded-full border-2 border-gold/20 flex items-center justify-center text-5xl md:text-6xl">
+                        🌍
+                    </div>
+                    <div class="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-gold animate-ping"></div>
+                    <div class="absolute -bottom-2 -left-2 w-3 h-3 rounded-full bg-royal-blue animate-ping" style="animation-delay:0.6s;"></div>
+                </div>
+            </div>
+
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 reveal">
+                <!-- Nigeria -->
+                <a href="https://wa.me/2347051980716?text=I%20want%20to%20send%20money%20to%20Nigeria" target="_blank" rel="noopener" class="glass p-4 rounded-xl text-center country-card border border-white/5 hover:border-gold/40 transition-all duration-300">
+                    <div class="country-flag">🇳🇬</div>
+                    <div class="font-semibold text-white mt-1">Nigeria</div>
+                    <div class="text-xs text-white/40">Send &amp; Receive</div>
+                </a>
+                <!-- Cameroon -->
+                <a href="https://wa.me/2347051980716?text=I%20want%20to%20send%20money%20to%20Cameroon" target="_blank" rel="noopener" class="glass p-4 rounded-xl text-center country-card border border-white/5 hover:border-gold/40 transition-all duration-300">
+                    <div class="country-flag">🇨🇲</div>
+                    <div class="font-semibold text-white mt-1">Cameroon</div>
+                    <div class="text-xs text-white/40">Send &amp; Receive</div>
+                </a>
+                <!-- Zambia -->
+                <a href="https://wa.me/2347051980716?text=I%20want%20to%20send%20money%20to%20Zambia" target="_blank" rel="noopener" class="glass p-4 rounded-xl text-center country-card border border-white/5 hover:border-gold/40 transition-all duration-300">
+                    <div class="country-flag">🇿🇲</div>
+                    <div class="font-semibold text-white mt-1">Zambia</div>
+                    <div class="text-xs text-white/40">Send &amp; Receive</div>
+                </a>
+                <!-- South Africa -->
+                <a href="https://wa.me/2347051980716?text=I%20want%20to%20send%20money%20to%20South%20Africa" target="_blank" rel="noopener" class="glass p-4 rounded-xl text-center country-card border border-white/5 hover:border-gold/40 transition-all duration-300">
+                    <div class="country-flag">🇿🇦</div>
+                    <div class="font-semibold text-white mt-1">South Africa</div>
+                    <div class="text-xs text-white/40">Send &amp; Receive</div>
+                </a>
+                <!-- Kenya -->
+                <a href="https://wa.me/2347051980716?text=I%20want%20to%20send%20money%20to%20Kenya" target="_blank" rel="noopener" class="glass p-4 rounded-xl text-center country-card border border-white/5 hover:border-gold/40 transition-all duration-300">
+                    <div class="country-flag">🇰🇪</div>
+                    <div class="font-semibold text-white mt-1">Kenya</div>
+                    <div class="text-xs text-white/40">Send &amp; Receive</div>
+                </a>
+                <!-- Benin Republic -->
+                <a href="https://wa.me/2347051980716?text=I%20want%20to%20send%20money%20to%20Benin%20Republic" target="_blank" rel="noopener" class="glass p-4 rounded-xl text-center country-card border border-white/5 hover:border-gold/40 transition-all duration-300">
+                    <div class="country-flag">🇧🇯</div>
+                    <div class="font-semibold text-white mt-1">Benin Republic</div>
+                    <div class="text-xs text-white/40">Send &amp; Receive</div>
+                </a>
+                <!-- Ghana -->
+                <a href="https://wa.me/2347051980716?text=I%20want%20to%20send%20money%20to%20Ghana" target="_blank" rel="noopener" class="glass p-4 rounded-xl text-center country-card border border-white/5 hover:border-gold/40 transition-all duration-300">
+                    <div class="country-flag">🇬🇭</div>
+                    <div class="font-semibold text-white mt-1">Ghana</div>
+                    <div class="text-xs text-white/40">Send &amp; Receive</div>
+                </a>
+                <!-- + More (coming soon) – not clickable -->
+                <div class="glass p-4 rounded-xl text-center country-card border border-white/5 opacity-50 cursor-not-allowed">
+                    <div class="country-flag">🌍</div>
+                    <div class="font-semibold text-white mt-1">+ More</div>
+                    <div class="text-xs text-white/40">Coming Soon</div>
+                </div>
+            </div>
+
+            <!-- Receive from -->
+            <div class="mt-12 reveal">
+                <p class="text-center text-sm font-medium uppercase tracking-wider text-white/40 mb-6">
+                    <i class="fas fa-arrow-down mr-2"></i> We Also Receive Payments From
+                </p>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <span class="glass px-4 py-2 rounded-full text-sm border border-white/5">🇺🇸 USA</span>
+                    <span class="glass px-4 py-2 rounded-full text-sm border border-white/5">🇬🇧 United Kingdom</span>
+                    <span class="glass px-4 py-2 rounded-full text-sm border border-white/5">🇨🇳 China</span>
+                    <span class="glass px-4 py-2 rounded-full text-sm border border-white/5">🇨🇦 Canada</span>
+                    <span class="glass px-4 py-2 rounded-full text-sm border border-white/5">🇩🇿 Algeria</span>
+                    <span class="glass px-4 py-2 rounded-full text-sm border border-white/5">🇦🇺 Australia</span>
+                    <span class="glass px-4 py-2 rounded-full text-sm border border-white/5">🇩🇪 Germany</span>
+                </div>
+            </div>
+        </div>
+    </section>
             <!-- Animated globe visualization -->
             <div class="flex justify-center mb-12 reveal">
                 <div class="relative w-24 h-24 md:w-32 md:h-32 globe-pulse">
