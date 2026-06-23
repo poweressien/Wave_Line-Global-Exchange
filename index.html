@@ -118,14 +118,15 @@
             }
         }
         .loader-text {
-            margin-top: 24px;
-            font-size: 1.2rem;
-            font-weight: 600;
-            letter-spacing: 4px;
-            background: linear-gradient(135deg, var(--gold), var(--royal-blue-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
+    margin-top: 24px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    letter-spacing: 4px;
+    background: linear-gradient(135deg, var(--gold), var(--royal-blue-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;   /* <-- add this line */
+}
 
         /* ===== GLASSMORPHISM ===== */
         .glass {
